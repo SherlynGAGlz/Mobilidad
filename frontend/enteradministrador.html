@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: #00a0c8;
+            background: linear-gradient(to right, #fcfeff, #85cee8);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .header {
+            width: 100%;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-central {
+            width: 100px;
+            height: 100px;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 240px;
+            position: fixed;
+            top: 0;
+            left: -240px;
+            background-color: #5f9cd8;
+            transition: 0.3s;
+            padding-top: 50px;
+            z-index: 1000;
+        }
+
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #bd33e7;
+        }
+
+        .open-btn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #f047ad;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            transition: opacity 0.3s;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .open-btn.hide-btn {
+            display: none; 
+        }
+
+        .sidebar .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .search-container {
+            margin-top: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-bar {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35); 
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: #004080;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35); 
+        }
+
+        .search-btn {
+            padding: 10px 15px;
+            border: none;
+            background-color: #34c759; 
+            color: white;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+        }
+
+        .search-btn:hover {
+            background-color: #2aad49; 
+        }
+
+        .funciones {
+            display: flex;
+            gap: 25px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            width: 400px;
+            height: 200px;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            transition: 0.5s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+            transition: 0.5s;
+        }
+
+        .card .layer {
+            background: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 50%;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .card .info {
+            position: absolute;
+            bottom: -50%;
+            padding: 15px;
+            opacity: 0;
+            transition: 0.5s bottom, 1.75s opacity;
+            color: rgb(255, 247, 0);
+            text-shadow: 1px 1px 4px white;
+        }
+
+        .info button {
+            background: #f047ad;
+            border: none;
+            padding: 8px 12px;
+            font-weight: bold;
+            border-radius: 8px;
+            margin-top: 8px;
+            color: white;
+        }
+
+        .card:hover,
+        .card:hover img,
+        .card:hover .layer {
+            transform: scale(1.05);
+        }
+
+        .card:hover > .layer {
+            opacity: 1;
+        }
+
+        .card:hover > .info {
+            opacity: 1;
+            bottom: 0;
+        }
+
+        .funciones:hover > .card:not(:hover) {
+            filter: blur(10);
+        }
+    </style>
+</head>
+<body>
+
+    <button class="open-btn" id="openBtn" onclick="toggleSidebar()">☰ Abrir Menú</button>
+
+    <div class="sidebar" id="sidebar">
+        <img src="logo-fotor-2025022321724.png" alt="Logo Sidebar" class="logo">
+        <a href="index.html">Inicio</a>
+        <a href="#">Contacto</a>
+        <a href="#">Acerca de</a>
+    </div>
+
+    <header class="header">
+        <img src="logo-fotor-2025022321724.png" alt="Logo Central" class="logo-central">
+    </header>
+
+    <div class="funciones">
+        <div class="card" data-title="Personal">
+            <img src="personal.jpeg" alt="">
+            <div class="layer"></div>
+            <div class="info">
+                <h1>Personal</h1>
+                <button>agregar personal</button>
+                <button>Actualizar personal</button>
+            </div>
+        </div>
+        <div class="card" data-title="Transporte">
+            <img src="camion.webp" alt="">
+            <div class="layer"></div>
+            <div class="info">
+                <h1>Transporte</h1>
+                <button>agregar camion</button>
+                <button>Actualizar camion</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="searchBar" class="search-bar" placeholder="Buscar camion" oninput="search()">
+        <button class="search-btn" onclick="search()">Buscar</button>
+    </div>
+
+    <div class="fotos">
+        <div class="cambio_de_fotos">
+            <div class="cambio_de_fotos">
+                <img src="accidente-yo-voy.jpg" alt="">
+            </div>
+            <div class="cambio_de_fotos">
+                <img src="cho.jpeg" alt="">
+            </div>
+            <div class="cambio_de_fotos">
+                <img src="accidente-yo-voy.jpg" alt="">
+            </div>
+            <div class="cambio_de_fotos">
+                <img src="cho.jpeg" alt="">
+            </div>
+            <div class="cambio_de_fotos">
+                <img src="accidente-yo-voy.jpg" alt="">
+            </div>
+            <div class="cambio_de_fotos">
+                <img src="cho.jpeg" alt="">
+            </div>
+            <div class="cambio_de_fotos">
+                <img src="accidente-yo-voy.jpg" alt="">
+            </div>
+            <div class="cambio_de_fotos">
+                <img src="cho.jpeg" alt="">
+            </div>
+            <div class="cambio_de_fotos">
+                <img src="accidente-yo-voy.jpg" alt="">
+            </div>
+
+        </div>
+    </div>
+    
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const openBtn = document.getElementById('openBtn');
+            sidebar.classList.toggle('active');
+            openBtn.classList.toggle('hide-btn');
+        }
+
+      
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const openBtn = document.getElementById('openBtn');
+            const isClickInside = sidebar.contains(event.target) || openBtn.contains(event.target);
+            if (!isClickInside) {
+                sidebar.classList.remove('active');
+                openBtn.classList.remove('hide-btn');
+            }
+        });
+    </script>
+
+</body>
+</html>

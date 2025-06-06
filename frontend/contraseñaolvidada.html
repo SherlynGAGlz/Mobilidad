@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar contraseña</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: #00a0c8;
+            background: linear-gradient(to right, #fcfeff, #85cee8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 240px;
+            position: fixed;
+            top: 0;
+            left: -240px; 
+            background-color: #5f9cd8;
+            transition: 0.3s;
+            padding-top: 50px;
+            z-index: 1000;
+        }
+
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #bd33e7;
+        }
+
+        .open-btn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color:#f047ad;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            transition: opacity 0.3s;
+        }
+
+        .main-content {
+            margin-left: 20px;
+            padding: 20px;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .hide-btn {
+            display: none;
+        }
+
+        .logo {
+            width: 80px; 
+            height: 80px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center; 
+        }
+
+        .recuperar_contraseña{
+            background-color: #fcfeff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 50vh;
+            margin: 50px;
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo_contraseña {
+            width: 80px; 
+            height: 80px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center; 
+        }
+
+        .input {
+            background-color:  #cfcece; 
+            border: none;
+            margin: 8px 0;
+            padding: 10px 15px;
+            font-size: 13px;
+            border-radius: 8px;
+            width: 100%;
+            outline: none;
+        }
+
+        .recuperar_contraseña button {
+            background-color: #f047ad;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 15px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .recuperar_contraseña button:hover {
+            background-color: #f047ad;
+        }
+
+        .small-text {
+            color: gray;
+            font-size: 12px;
+            margin-top: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="open-btn" id="openBtn" onclick="toggleSidebar()">☰ Abrir Menú</button>
+
+    <div class="sidebar" id="sidebar">
+        <img src="logo-fotor-2025022321724.png" alt="Logo Conductor" class="logo">
+        <a href="index.html">Inicio</a>
+        <a href="#">Contacto</a>
+        <a href="#">Acerca de</a>
+    </div>
+
+    <div class="recuperar_contraseña">
+        <img src="logo-fotor-2025022321724.png" alt="Logo Conductor" class="logo_contraseña">
+        <h2>Recuperar contraseña</h2>
+        <input type="text" class="input" placeholder="ID">
+        <input type="number" class="input" placeholder="Número telefónico">
+        <button>Recuperar contraseña</button>
+        <p class="small-text">Una vez completado lo anterior espere el mensaje con su contraseña para continuar con sus actividades.</p>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            var openBtn = document.getElementById("openBtn");
+            
+            sidebar.classList.toggle("active");
+
+            if (sidebar.classList.contains("active")) {
+                openBtn.classList.add("hide-btn");
+            } else {
+                openBtn.classList.remove("hide-btn");
+            }
+        }
+
+        document.addEventListener("click", function(event) {
+            var sidebar = document.getElementById("sidebar");
+            var openBtn = document.querySelector(".open-btn");
+
+            if (!sidebar.contains(event.target) && !openBtn.contains(event.target)) {
+                sidebar.classList.remove("active");
+                openBtn.classList.remove("hide-btn");
+            }
+        });
+    </script>
+
+</body>
+</html>
+

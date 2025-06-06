@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: #00a0c8;
+            background: linear-gradient(to right, #fcfeff, #85cee8);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .header {
+            width: 100%;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-central {
+            width: 100px;
+            height: 100px;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 240px;
+            position: fixed;
+            top: 0;
+            left: -240px;
+            background-color: #5f9cd8;
+            transition: 0.3s;
+            padding-top: 50px;
+            z-index: 1000;
+        }
+
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #bd33e7;
+        }
+
+        .open-btn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #f047ad;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            transition: opacity 0.3s;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .hide-btn {
+            display: none;
+        }
+
+        .sidebar .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="open-btn" id="openBtn" onclick="toggleSidebar()">☰ Abrir Menú</button>
+
+    <div class="sidebar" id="sidebar">
+        <img src="logo-fotor-2025022321724.png" alt="Logo Sidebar" class="logo">
+        <a href="index.html">Inicio</a>
+        <a href="#">Contacto</a>
+        <a href="#">Acerca de</a>
+    </div>
+
+    <header class="header">
+        <img src="logo-fotor-2025022321724.png" alt="Logo Central" class="logo-central">
+    </header>
+
+    <!-- Botón para enviar datos -->
+    <button onclick="enviarDatos()">Enviar Datos</button>
+
+    <script>
+        // Función para alternar la visibilidad del sidebar
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            var openBtn = document.getElementById("openBtn");
+            
+            sidebar.classList.toggle("active");
+
+            if (sidebar.classList.contains("active")) {
+                openBtn.classList.add("hide-btn");
+            } else {
+                openBtn.classList.remove("hide-btn");
+            }
+        }
+
+        // Evento que cierra el sidebar si se hace clic fuera de él
+        document
